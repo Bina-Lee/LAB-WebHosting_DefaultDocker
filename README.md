@@ -9,3 +9,10 @@
 
 ### Required Edit
 ### workspace/nginx
+
+```
+docker ps
+sudo docker-compose down
+sudo docker-compose up --build
+sudo docker-compose up --build -d
+```
