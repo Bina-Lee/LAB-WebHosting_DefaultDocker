@@ -3,10 +3,10 @@ services:
   db:
     image: mariadb:latest
     environment:
-      MYSQL_ROOT_PASSWORD: your_root_password  # MariaDB 루트 비밀번호
-      MYSQL_DATABASE: your_database            # 기본 데이터베이스 이름
-      MYSQL_USER: your_user                    # MariaDB 사용자 이름
-      MYSQL_PASSWORD: your_password            # MariaDB 사용자 비밀번호
+      MYSQL_ROOT_PASSWORD: rootpassword  # MariaDB 루트 비밀번호
+      MYSQL_DATABASE: {database}            # 기본 데이터베이스 이름
+      MYSQL_USER: user                    # MariaDB 사용자 이름
+      MYSQL_PASSWORD: password            # MariaDB 사용자 비밀번호
     volumes:
       - db_data:/var/lib/mysql                 # 데이터 저장을 위한 볼륨
     networks:
