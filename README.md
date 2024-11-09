@@ -8,8 +8,11 @@
 - docker-compose.yml
 
 ### Required Edit
-### workspace/nginx
+### - workspace/nginx
 
+- use .gitignore for .env
+
+## docker command
 ```
 docker ps
 sudo docker-compose down

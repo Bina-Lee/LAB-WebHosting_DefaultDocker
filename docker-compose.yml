@@ -3,10 +3,10 @@ services:
   db:
     image: mariadb:latest
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword  # MariaDB 루트 비밀번호
-      MYSQL_DATABASE: {database}            # 기본 데이터베이스 이름
-      MYSQL_USER: user                    # MariaDB 사용자 이름
-      MYSQL_PASSWORD: password            # MariaDB 사용자 비밀번호
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # MariaDB 루트 비밀번호
+      MYSQL_DATABASE: ${MYSQL_DATABASE}            # 기본 데이터베이스 이름
+      MYSQL_USER: ${MYSQL_USER}                    # MariaDB 사용자 이름
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}            # MariaDB 사용자 비밀번호
     volumes:
       - db_data:/var/lib/mysql                 # 데이터 저장을 위한 볼륨
     networks:
@@ -18,9 +18,9 @@ services:
       dockerfile: Dockerfile
     environment:
       DB_HOST: db
-      DB_USER: your_user
-      DB_PASSWORD: your_password
-      DB_NAME: your_database
+      DB_USER: ${MYSQL_USER} 
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DB_NAME: ${MYSQL_DATABASE}
     expose:
       - "{port_num}"                                   # Node.js 내부에서 82번 포트를 사용
     ports:
