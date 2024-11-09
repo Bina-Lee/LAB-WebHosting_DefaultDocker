@@ -22,9 +22,21 @@ db.connect(err => {
   }
 });
 
-// route 경로로 요청이 올 경우 `public/index.html` 파일 제공
-app.get(route, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// // route 경로로 요청이 올 경우 `public/index.html` 파일 제공
+// app.get(route, (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// });
+
+// 특정 경로로 요청이 올 경우 해당 폴더의 index.html 파일 제공
+app.get(`${route}/*`, (req, res) => {
+  const subPath = req.path.replace(route, ''); // 요청 경로에서 기본 경로 제거
+  const requestedPath = path.join(__dirname, 'public', subPath, 'index.html');
+
+  res.sendFile(requestedPath, (err) => {
+    if (err) {
+      res.status(404).send('페이지를 찾을 수 없습니다.');
+    }
+  });
 });
 
 // 기본 정적 파일 제공 (public 폴더 전체 서빙)
