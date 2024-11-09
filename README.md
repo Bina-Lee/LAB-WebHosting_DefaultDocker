@@ -6,3 +6,6 @@
 - app/Dockerfile
 - app/server.js
 - docker-compose.yml
+
+### Required Edit
+### workspace/nginx
