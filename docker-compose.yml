@@ -22,9 +22,9 @@ services:
       DB_PASSWORD: ${MYSQL_PASSWORD}
       DB_NAME: ${MYSQL_DATABASE}
     expose:
-      - "{port_num}"                                   # Node.js 내부에서 82번 포트를 사용
+      - "8082"                                   # Node.js 내부에서 82번 포트를 사용
     ports:
-      - "{port_num}:{port_num}"
+      - "8082:8082"
     networks:
       - beeweb_shared-network
 

@@ -2,9 +2,9 @@ const express = require('express');
 const mysql = require('mysql2');
 const path = require('path');
 const app = express();
-const port = {port_num};
+const port = 8082;
 
-const route = "/{route}";
+const route = "/purchaseManage";
 
 // MariaDB 연결 설정
 const db = mysql.createConnection({
