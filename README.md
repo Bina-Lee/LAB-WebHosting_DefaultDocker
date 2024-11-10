@@ -36,9 +36,7 @@
 - studentID -reference: student-ID
 - CompositePrimaryKey - teamCode, studentID
 ### purchaseRequest
-- unit - reference: unit-code
-- project - reference: project-name
-- team - reference: team-name
+- team - reference: team-code
 - requestCode - randomCode - primary
 - status - enum{beforeCheck, check, checkOut}
 ### requestItem
