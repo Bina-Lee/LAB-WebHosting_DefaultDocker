@@ -1,7 +1,9 @@
 version: '3.8'
 services:
-  db:
-    image: mariadb:latest
+  mariadb:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # MariaDB 루트 비밀번호
       MYSQL_DATABASE: ${MYSQL_DATABASE}            # 기본 데이터베이스 이름
@@ -9,12 +11,13 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}            # MariaDB 사용자 비밀번호
     volumes:
       - db_data:/var/lib/mysql                 # 데이터 저장을 위한 볼륨
+    restart: always
     networks:
       - beeweb_shared-network
 
   web:
     build:
-      context: ./app
+      context: ./web
       dockerfile: Dockerfile
     environment:
       DB_HOST: db
