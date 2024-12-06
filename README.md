@@ -53,7 +53,7 @@
 - This Repository's original is docker image for WCL Web Hosting Service
 ### Fork and Edit, and use for Web Hosting
 
-##E Required Edit
+### Required Edit
 - app/Dockerfile
 - app/server.js
 - docker-compose.yml
@@ -63,7 +63,7 @@
 
 - use .gitignore for .env
 
-##E docker command
+### docker command
 
 ```
 docker ps
@@ -71,3 +71,19 @@ sudo docker-compose down
 sudo docker-compose up --build
 sudo docker-compose up --build -d
 ```
+
+## Directory
+project/
+├── public/                   # 정적 파일 (HTML, CSS, JavaScript)
+├── src/                      # 서버 코드
+│   ├── controllers/          # 비즈니스 로직 담당
+│   ├── dao/                  # 데이터베이스 접근 계층
+│   ├── routers/              # 라우터 모듈
+│   ├── utils/                # 유틸리티 함수
+│   ├── config/               # 설정 파일
+│   ├── views/                # 동적 View 파일 (HTML, EJS 등)
+│   └── app.js                # Express 애플리케이션 설정
+├── .env                      # 환경 변수 파일
+├── package.json              # npm 설정
+└── server.js                 # 서버 시작점
+
