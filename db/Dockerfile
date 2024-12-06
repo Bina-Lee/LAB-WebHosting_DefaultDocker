@@ -2,10 +2,10 @@
 FROM mariadb:11.4
 
 # MariaDB 환경 변수 설정
-ENV MYSQL_ROOT_PASSWORD=rootpassword
-ENV MYSQL_DATABASE={}
-ENV MYSQL_USER=user
-ENV MYSQL_PASSWORD=password
+ENV MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+ENV MYSQL_DATABASE=${MYSQL_DATABASE}
+ENV MYSQL_USER=${MYSQL_USER}
+ENV MYSQL_PASSWORD=${MYSQL_PASSWORD}
 
 # 초기화 스크립트를 Docker entrypoint 디렉토리에 복사
 COPY init.sql /docker-entrypoint-initdb.d/
