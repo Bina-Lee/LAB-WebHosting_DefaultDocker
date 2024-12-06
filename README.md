@@ -73,6 +73,7 @@ sudo docker-compose up --build -d
 ```
 
 ## Directory
+```
 project/
 ├── public/                   # 정적 파일 (HTML, CSS, JavaScript)
 ├── src/                      # 서버 코드
@@ -86,4 +87,4 @@ project/
 ├── .env                      # 환경 변수 파일
 ├── package.json              # npm 설정
 └── server.js                 # 서버 시작점
-
+```
