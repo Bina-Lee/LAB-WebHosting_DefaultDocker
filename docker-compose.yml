@@ -13,7 +13,7 @@ services:
       - db_data:/var/lib/mysql                 # 데이터 저장을 위한 볼륨
     restart: always
     networks:
-      - beeweb_shared-network
+      - shared-network
 
   web:
     build:
@@ -29,11 +29,14 @@ services:
     ports:
       - "8082:8082"
     networks:
-      - beeweb_shared-network
+      - shared-network
 
 volumes:
   db_data:
 
+# networks:
+#   beeweb_shared-network:
+#     external: true
+
 networks:
-  beeweb_shared-network:
-    external: true
+  shared-network:
