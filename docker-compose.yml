@@ -4,6 +4,8 @@ services:
     build:
       context: ./db
       dockerfile: Dockerfile
+    ports:
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # MariaDB 루트 비밀번호
       MYSQL_DATABASE: ${MYSQL_DATABASE}            # 기본 데이터베이스 이름
