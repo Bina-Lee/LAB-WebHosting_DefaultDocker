@@ -48,13 +48,22 @@ CREATE TABLE IF NOT EXISTS team (
 );
 
 -- teamMembers 테이블 생성 (복합 기본 키)
+-- CREATE TABLE IF NOT EXISTS teamMembers (
+--     teamCode VARCHAR(50) NOT NULL,                     -- team 테이블의 code 참조
+--     studentID INT NOT NULL,                            -- student 테이블의 ID 참조
+--     PRIMARY KEY (teamCode, studentID),                 -- 복합 기본 키
+--     FOREIGN KEY (teamCode) REFERENCES team(code),      -- team 테이블과 연결
+--     FOREIGN KEY (studentID) REFERENCES student(ID)     -- student 테이블과 연결
+-- );
 CREATE TABLE IF NOT EXISTS teamMembers (
     teamCode VARCHAR(50) NOT NULL,                     -- team 테이블의 code 참조
+    studentUnitCode VARCHAR(50) NOT NULL,              -- student 테이블의 unitCode 참조
     studentID INT NOT NULL,                            -- student 테이블의 ID 참조
     PRIMARY KEY (teamCode, studentID),                 -- 복합 기본 키
     FOREIGN KEY (teamCode) REFERENCES team(code),      -- team 테이블과 연결
-    FOREIGN KEY (studentID) REFERENCES student(ID)     -- student 테이블과 연결
+    FOREIGN KEY (studentUnitCode, studentID) REFERENCES student(unitCode, ID)  -- 복합 외래 키 참조
 );
+--  add foreign key (studentUnitCode, studentID) references student(unitCode, ID)
 
 -- purchaseRequest 테이블 생성
 CREATE TABLE IF NOT EXISTS purchaseRequest (

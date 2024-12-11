@@ -88,3 +88,10 @@ project/
 ├── package.json              # npm 설정
 └── server.js                 # 서버 시작점
 ```
+
+```
+brew services start mariadb
+brew services stop mariadb
+EXIT;
+QUIT;
+```
