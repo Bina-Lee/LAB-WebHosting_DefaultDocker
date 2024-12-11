@@ -1,6 +1,13 @@
 const app = require('./src/app');
-const port = process.env.PORT || 3000;
+const pool = require('./src/config/database');
 
-app.listen(app.get('port'), () => {
-  console.log(`서버가 http://localhost:${port}에서 실행 중입니다.`);
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, async () => {
+  try {
+    await pool.query('SELECT 1');
+    console.log('Database connected and server running on port', PORT);
+  } catch (err) {
+    console.error('Database connection failed:', err.message);
+  }
 });
