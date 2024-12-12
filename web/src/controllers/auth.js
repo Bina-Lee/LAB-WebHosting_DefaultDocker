@@ -18,7 +18,7 @@ exports.login = async (req, res) => {
         if (user.password !== password) {
             return res.status(401).json({ message: 'Invalid password.' });
         }
-        // Success: return the user's name
+
         res.json({ message: 'Login successful.', name: user.name });
     } catch (err) {
         console.error('Error during login:', err);
