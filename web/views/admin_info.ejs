@@ -39,7 +39,8 @@
 
 <body>
   <h2>Info Management</h2>
-
+  <hr>
+  <hr>
   <!-- Add Course 버튼 -->
   <button id="add-course-btn">ADD COURSE</button>
 
@@ -76,7 +77,8 @@
         <% }); %>
     </ul>
   </div>
-
+  <hr>
+  <hr>
   <!-- Add Project -->
   <button id="add-project-btn">ADD PROJECT</button>
   <div class="modal-overlay" id="project-modal-overlay"></div>
@@ -119,7 +121,7 @@
     <h4>Project List</h4>
     <ul id="project-list">
       <% projects.forEach((project)=> { %>
-        <li>
+        <li class="project-item" data-project-id="<%= project.projectId %>">
           <strong>
             <%= project.projectName %>
           </strong>
@@ -128,6 +130,18 @@
         <% }); %>
     </ul>
   </div>
+
+  <hr>
+  <hr>
+
+  <!-- 팀 리스트 -->
+  <div id="team-list-section">
+    <h4>Teams in Selected Project</h4>
+    <ul id="team-list">
+      <!-- JavaScript로 동적 렌더링 -->
+    </ul>
+  </div>
+
   <script>
     // 버튼 및 모달 요소 선택
     const addCourseBtn = document.getElementById('add-course-btn');
@@ -195,6 +209,32 @@
       document.getElementById('project-modal-overlay').classList.remove('show');
     });
 
+    // 특정 프로젝트의 팀 리스트 불러오기
+    async function loadTeams(projectId) {
+      try {
+        const response = await fetch(`/admin/project/${projectId}/teams`);
+        const teams = await response.json();
+
+        const teamList = document.getElementById('team-list');
+        teamList.innerHTML = ''; // 기존 리스트 초기화
+
+        teams.forEach((team) => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="/admin/team/${team.teamId}">${team.name}</a> (Personnel: ${team.personnel}, Course: ${team.courseName})`;
+          teamList.appendChild(li);
+        });
+      } catch (err) {
+        console.error('Error loading teams:', err);
+      }
+    }
+
+    // 프로젝트 클릭 시 팀 리스트 로드
+    document.querySelectorAll('.project-item').forEach((projectItem) => {
+      projectItem.addEventListener('click', () => {
+        const projectId = projectItem.dataset.projectId;
+        loadTeams(projectId);
+      });
+    });
   </script>
 </body>
 

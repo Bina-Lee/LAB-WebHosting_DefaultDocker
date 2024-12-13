@@ -3,7 +3,10 @@ const router = express.Router();
 const courseController = require('../controllers/course');
 const authController = require('../controllers/auth');
 const projectController = require('../controllers/project');
+const teamController = require('../controllers/team');
 
+router.get('/admin/project/:projectId/teams', teamController.getTeamsByProject);
+router.get('/admin/team/:teamId', teamController.getTeamDetails);
 router.get('/admin/main', (req, res) => res.render('admin_main'));
 router.get('/admin/info', async (req, res) => {
     try {
