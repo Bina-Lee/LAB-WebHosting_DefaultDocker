@@ -1,13 +1,14 @@
 const courseDAO = require('../dao/course');
 
-exports.getCourses = async (req, res) => {
+exports.getCourses = async () => {
   try {
     const courses = await courseDAO.getAllCourses();
-    res.render('admin_info', { courses }); // 데이터와 함께 admin_info 렌더링
+    return courses; // 데이터만 반환
   } catch (err) {
-    console.error('Error fetching courses:', err);
-    res.status(500).send('Internal Server Error');
+    console.error('Error fetching courses for dropdown:', err);
+    throw err; // 에러는 호출한 곳에서 처리
   }
+
 };
 
 exports.addCourse = async (req, res) => {

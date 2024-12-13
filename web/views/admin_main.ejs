@@ -26,8 +26,8 @@
 
     <!-- Buttons Section (Hidden until login) -->
     <div class="buttons hidden" id="main-buttons">
-        <a href="/info" class="btn">Go to Info Page</a>
-        <a href="/purchase" class="btn">View Purchase Requests</a>
+        <a href="/admin/info" class="btn">Go to Info Page</a>
+        <a href="/admin/purchase" class="btn">View Purchase Requests</a>
     </div>
     <script>
         document.getElementById('login-form').addEventListener('submit', async (event) => {
@@ -44,7 +44,7 @@
             });
       
             const result = await response.json();
-            console.log(result);
+            
             if (response.ok) {
               document.getElementById('login-message').textContent = `Welcome, ${result.name}!`;
               document.getElementById('login-message').classList.remove('hidden');

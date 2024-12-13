@@ -61,19 +61,73 @@
     </form>
   </div>
 
+
   <!-- Course List -->
   <div class="list">
     <h4>Course List</h4>
     <ul id="course-list">
-      <% courses.forEach((course) => { %>
+      <% courses.forEach((course)=> { %>
         <li>
-          <strong><%= course.name %></strong>
+          <strong>
+            <%= course.name %>
+          </strong>
           (Start: <%= course.startDateTime %>, End: <%= course.endDateTime %>)
         </li>
-      <% }); %>
+        <% }); %>
     </ul>
   </div>
 
+  <!-- Add Project -->
+  <button id="add-project-btn">ADD PROJECT</button>
+  <div class="modal-overlay" id="project-modal-overlay"></div>
+  <div class="modal" id="add-project-modal">
+    <h3>Add New Project</h3>
+    <form action="/project/add" method="POST">
+      <label for="project-name">Project Name:</label>
+      <input type="text" id="project-name" name="name" required>
+      <p></p>
+      <label for="courseId">Course:</label>
+      <select id="courseId" name="courseId" required>
+        <% courses.forEach((course)=> { %>
+          <option value="<%= course.courseId %>">
+            <%= course.name %>
+          </option>
+          <% }); %>
+      </select>
+      <p></p>
+      <label for="maxTeamPersonnel">Max Team Personnel:</label>
+      <input type="number" id="maxTeamPersonnel" name="maxTeamPersonnel" required>
+      <p></p>
+      <label for="budgetType">Budget Type:</label>
+      <input type="text" id="budgetType" name="budgetType" required>
+      <p></p>
+      <label for="budget">Budget:</label>
+      <input type="number" id="budget" name="budget" required>
+      <p></p>
+      <label for="startDateTime">Start Date & Time:</label>
+      <input type="datetime-local" id="startDateTime" name="startDateTime" required>
+      <p></p>
+      <label for="endDateTime">End Date & Time:</label>
+      <input type="datetime-local" id="endDateTime" name="endDateTime" required>
+      <p></p>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- Project List -->
+  <div class="list">
+    <h4>Project List</h4>
+    <ul id="project-list">
+      <% projects.forEach((project)=> { %>
+        <li>
+          <strong>
+            <%= project.projectName %>
+          </strong>
+          (Course: <%= project.courseName %>, Start: <%= project.startDateTime %>, End: <%= project.endDateTime %>)
+        </li>
+        <% }); %>
+    </ul>
+  </div>
   <script>
     // 버튼 및 모달 요소 선택
     const addCourseBtn = document.getElementById('add-course-btn');
@@ -128,6 +182,19 @@
         console.error('Error adding course:', err);
       }
     });
+
+    // Project 모달 열기
+    document.getElementById('add-project-btn').addEventListener('click', () => {
+      document.getElementById('add-project-modal').classList.add('show');
+      document.getElementById('project-modal-overlay').classList.add('show');
+    });
+
+    // Project 모달 닫기
+    document.getElementById('project-modal-overlay').addEventListener('click', () => {
+      document.getElementById('add-project-modal').classList.remove('show');
+      document.getElementById('project-modal-overlay').classList.remove('show');
+    });
+
   </script>
 </body>
 
