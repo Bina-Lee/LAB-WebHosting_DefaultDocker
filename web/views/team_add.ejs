@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Team</title>
+</head>
+<body>
+  <h1>Add New Team</h1>
+  <% if (error) { %>
+    <p style="color: red;"><%= error %></p>
+  <% } %>
+  <form action="/admin/team/add" method="POST">
+    <label for="name">Team Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="personnel">Personnel:</label>
+    <input type="number" id="personnel" name="personnel" required><br><br>
+
+    <label for="courseId">Select Course:</label>
+    <select id="courseId" name="courseId" required>
+      <% courses.forEach(course => { %>
+        <option value="<%= course.courseId %>"><%= course.name %></option>
+      <% }); %>
+    </select><br><br>
+
+    <label for="projectId">Select Project:</label>
+    <select id="projectId" name="projectId" required>
+      <% projects.forEach(project => { %>
+        <option value="<%= project.projectId %>"><%= project.name %></option>
+      <% }); %>
+    </select><br><br>
+
+    <button type="submit">Add Team</button>
+  </form>
+</body>
+</html>

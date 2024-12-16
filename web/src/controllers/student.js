@@ -1,4 +1,3 @@
-web/src/controllers/student.js
 const studentDAO = require('../dao/student');
 
 // 로그인 페이지 렌더링

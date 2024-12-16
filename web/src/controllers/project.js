@@ -20,7 +20,7 @@ exports.addProject = async (req, res) => {
   }
 
   try {
-    const adminId = 202201673; // 고정값
+    const adminId = 100000000; // 고정값
     await projectDAO.addProject({
       name,
       maxTeamPersonnel,

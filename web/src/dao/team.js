@@ -56,3 +56,26 @@ exports.getPurchaseRecords = async (teamId) => {
     throw err;
   }
 };
+
+// 모든 코스 목록 가져오기
+exports.getCourses = async () => {
+  const query = `SELECT courseId, name FROM Course`;
+  const [rows] = await pool.query(query);
+  return rows;
+};
+
+// 모든 프로젝트 목록 가져오기
+exports.getProjects = async () => {
+  const query = `SELECT projectId, name FROM Project`;
+  const [rows] = await pool.query(query);
+  return rows;
+};
+
+// 새로운 팀 추가
+exports.insertTeam = async (name, personnel, courseId, projectId) => {
+  const query = `
+    INSERT INTO Team (name, personnel, courseId, projectId) 
+    VALUES (?, ?, ?, ?)
+  `;
+  await pool.query(query, [name, personnel, courseId, projectId]);
+};

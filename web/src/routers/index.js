@@ -5,10 +5,15 @@ const authController = require('../controllers/auth');
 const projectController = require('../controllers/project');
 const teamController = require('../controllers/team');
 const studentController = require('../controllers/student');
+const teamMemberController = require('../controllers/teamMember');
+const purchaseController = require('../controllers/purchase');
+
 
 /* ADMIN 페이지 */
+router.get('/admin/team/add', teamController.getAddTeamPage);
 router.get('/admin/project/:projectId/teams', teamController.getTeamsByProject);
 router.get('/admin/team/:teamId', teamController.getTeamDetails);
+router.get('/admin/teamMember/add', teamMemberController.getAddTeamMemberPage);
 router.get('/admin/main', (req, res) => res.render('admin_main'));
 router.get('/admin/info', async (req, res) => {
     try {
@@ -20,18 +25,20 @@ router.get('/admin/info', async (req, res) => {
       res.status(500).send('Internal Server Error');
     }
   });
-
+ 
 /* STDUENT 페이지 */
 router.get('/student/login', studentController.getLoginPage);
 router.get('/student/main', studentController.getStudentMainPage);
 router.get('/student/team/:teamId', teamController.getTeamDetails);
-router.get('/student/purchase', studentController.getPurchasePage);
+router.get('/student/purchase', purchaseController.getPurchasePage);
 
 /* API 페이지 */
 router.post('/project/add', projectController.addProject);
 router.post('/course/add', courseController.addCourse); 
 router.post('/login', authController.login);
 router.post('/student/login', studentController.postLogin);
-
+router.post('/admin/team/add', teamController.postAddTeam);
+router.post('/admin/teamMember/add', teamMemberController.postAddTeamMember);
+router.post('/student/purchase', purchaseController.postPurchaseRequest);
 
 module.exports = router;

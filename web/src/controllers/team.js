@@ -1,5 +1,34 @@
 const teamDAO = require('../dao/team');
 
+exports.getAddTeamPage = async (req, res) => {
+  try {
+    const courses = await teamDAO.getCourses(); // 코스 목록 가져오기
+    const projects = await teamDAO.getProjects(); // 프로젝트 목록 가져오기
+    res.render('team_add', { courses, projects, error: null }); // error 기본값 설정
+  } catch (err) {
+    console.error(err);
+    res.render('team_add', {
+      courses: [],
+      projects: [],
+      error: '데이터를 불러오는 중 오류가 발생했습니다.',
+    });
+  }
+};
+
+
+// 팀 추가 처리
+exports.postAddTeam = async (req, res) => {
+  const { name, personnel, courseId, projectId } = req.body;
+
+  try {
+    await teamDAO.insertTeam(name, personnel, courseId, projectId);
+    res.redirect('/admin/info'); // 팀 추가 후 관리자 페이지로 이동
+  } catch (err) {
+    console.error(err);
+    res.render('team_add', { error: '팀 추가 중 오류가 발생했습니다.' });
+  }
+};
+
 // 특정 프로젝트의 팀 리스트 조회
 exports.getTeamsByProject = async (req, res) => {
   const { projectId } = req.params;
