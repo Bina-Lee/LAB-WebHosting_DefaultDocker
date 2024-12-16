@@ -12,7 +12,7 @@ RUN npm install
 COPY . .
 
 # 서버 포트 (예: 3000) 노출
-EXPOSE {port_num}
+EXPOSE 8082
 
 # 서버 시작 명령
 CMD ["node", "server.js"]

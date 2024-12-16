@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add Team Member</title>
+  </head>
+  <body>
+    <h1>Add Team Member</h1>
+    <% if (error) { %>
+      <p style="color: red;"><%= error %></p>
+    <% } %>
+    <form action="/admin/teamMember/add" method="POST">
+      <label for="teamId">Select Team:</label>
+      <select id="teamId" name="teamId" required>
+        <% teams.forEach(team => { %>
+          <option value="<%= team.teamId %>"><%= team.name %></option>
+        <% }); %>
+      </select><br /><br />
+
+      <label for="studentId">Select Member:</label>
+      <select id="studentId" name="studentId" required>
+        <% members.forEach(member => { %>
+          <option value="<%= member.memberId %>"><%= member.name %></option>
+        <% }); %>
+      </select><br /><br />
+
+      <button type="submit">Add Member</button>
+    </form>
+  </body>
+</html>

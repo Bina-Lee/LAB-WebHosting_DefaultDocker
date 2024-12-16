@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+
+<body>
+    <h1>Admin Dashboard</h1>
+    
+    <div id="login-section">
+        <h2>Login</h2>
+        <form id="login-form" action="/login" method="POST">
+            <label for="student-id">Student ID:</label>
+            <input type="text" id="student-id" name="student-id" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <p id="login-message" class="hidden"></p>
+    </div>
+
+    <!-- Buttons Section (Hidden until login) -->
+    <div class="buttons hidden" id="main-buttons">
+        <a href="/admin/info" class="btn">Go to Info Page</a>
+        <a href="/admin/purchase" class="btn">View Purchase Requests</a>
+    </div>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const studentId = document.getElementById('student-id').value;
+          const password = document.getElementById('password').value;
+          console.log({ studentId, password }); // 서버 요청 전 데이터 확인
+
+          try {
+            const response = await fetch('/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ 'student-id': studentId, password }),
+            });
+      
+            const result = await response.json();
+            
+            if (response.ok) {
+              document.getElementById('login-message').textContent = `Welcome, ${result.name}!`;
+              document.getElementById('login-message').classList.remove('hidden');
+              document.getElementById('main-buttons').classList.remove('hidden');
+              document.getElementById('login-section').classList.add('hidden');
+            } else {
+              document.getElementById('login-message').textContent = result.message;
+              document.getElementById('login-message').classList.remove('hidden');
+            }
+          } catch (err) {
+            console.error('Error during login:', err);
+            document.getElementById('login-message').textContent = 'Error during login.';
+            document.getElementById('login-message').classList.remove('hidden');
+          }
+        });
+      </script>
+</body>
+
+
+  
+
+</html>

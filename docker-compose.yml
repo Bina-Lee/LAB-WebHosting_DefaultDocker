@@ -1,7 +1,11 @@
 version: '3.8'
 services:
-  db:
-    image: mariadb:latest
+  mariadb:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    ports:
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # MariaDB 루트 비밀번호
       MYSQL_DATABASE: ${MYSQL_DATABASE}            # 기본 데이터베이스 이름
@@ -9,12 +13,13 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}            # MariaDB 사용자 비밀번호
     volumes:
       - db_data:/var/lib/mysql                 # 데이터 저장을 위한 볼륨
+    restart: always
     networks:
-      - beeweb_shared-network
+      - shared-network
 
   web:
     build:
-      context: ./app
+      context: ./web
       dockerfile: Dockerfile
     environment:
       DB_HOST: db
@@ -22,15 +27,18 @@ services:
       DB_PASSWORD: ${MYSQL_PASSWORD}
       DB_NAME: ${MYSQL_DATABASE}
     expose:
-      - "{port_num}"                                   # Node.js 내부에서 82번 포트를 사용
+      - "8082"                                   # Node.js 내부에서 82번 포트를 사용
     ports:
-      - "{port_num}:{port_num}"
+      - "8082:8082"
     networks:
-      - beeweb_shared-network
+      - shared-network
 
 volumes:
   db_data:
 
+# networks:
+#   beeweb_shared-network:
+#     external: true
+
 networks:
-  beeweb_shared-network:
-    external: true
+  shared-network:
