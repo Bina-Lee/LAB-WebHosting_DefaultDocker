@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>학생 메인 페이지</title>
+  </head>
+  <body>
+    <h1>학생 메인 페이지</h1>
+
+    <% if (student) { %>
+      <p><strong>이름:</strong> <%= student.name %></p>
+      <p><strong>학과:</strong> <%= student.major %></p>
+    <% } %>
+
+    <h2>팀 목록</h2>
+    <% if (error) { %>
+      <p style="color: red;"><%= error %></p>
+    <% } %>
+
+    <ul>
+      <% teams.forEach((team) => { %>
+        <li>
+          <a href="/student/team/<%= team.teamId %>"><%= team.name %></a>
+          <form action="/student/purchase" method="GET" style="display:inline;">
+            <button type="submit">구매 요청</button>
+          </form>
+        </li>
+      <% }); %>
+    </ul>
+  </body>
+</html>
